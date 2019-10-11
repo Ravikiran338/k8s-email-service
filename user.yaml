@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: emailservice
+  labels:
+    app: msa-banking-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: email-service
+      app: msa-banking-app
+
+  template:
+    metadata:
+      name: email-msa-pod
+      labels:
+        name: email-service
+        app: msa-banking-app
+
+    spec:
+      containers:
+      - name: email-container
+        image: ${REPOSITORY_TAG}
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: 800m
+            memory: 600Mi
+  
+      imagePullSecrets:
+          - name: myregistrykey
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: emailservice
+  labels:
+    name: email-service
+    app: msa-banking-app
+
+spec:
+  type: ClusterIP
+  ports:
+  -  protocol: TCP
+     targetPort: 7777
+     port: 7777
+
+  selector:
+    name: email-service
+    app: msa-banking-app
