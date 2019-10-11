@@ -20,7 +20,7 @@ import com.email.services.util.EmailUtil;
 public class EmailConsumer {
 	
 	private static final Logger mLogger = LoggerFactory.getLogger(EmailConsumer.class);
-	private static final String SERVICE_URL = "pulsar://35.171.240.214:6650";
+	private static final String SERVICE_URL = "pulsar://18.213.172.32:6650";
 	private static final String TOPIC_NAME = "user-topic";
 
 	public void consumeUserMessage() throws PulsarClientException {
