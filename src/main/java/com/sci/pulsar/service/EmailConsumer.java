@@ -20,14 +20,12 @@ import com.email.services.util.EmailUtil;
 public class EmailConsumer {
 	
 	private static final Logger mLogger = LoggerFactory.getLogger(EmailConsumer.class);
-	/*private static final String SERVICE_URL = "pulsar://34.206.196.97:6650";
-	private static final String TOPIC_NAME = "user-topic";*/
-	private String serviceUrl;
-	private String topicName;
-	
-	public void consumeUserMessage() throws PulsarClientException {
+	private static final String SERVICE_URL = "pulsar://34.206.196.97:6650";
+	private static final String TOPIC_NAME = "user-topic";
 
-		EmailConsumer consumer = new EmailConsumer(serviceUrl, topicName);
+	public static void consumeUserMessage() throws PulsarClientException {
+
+		EmailConsumer consumer = new EmailConsumer(SERVICE_URL, TOPIC_NAME);
 		consumer.addListener(msg -> {
 				mLogger.info(msg.toString());
 				new EmailUtil().prepareEmail(msg);
@@ -76,21 +74,5 @@ public class EmailConsumer {
 		} catch (PulsarClientException e) {
 			mLogger.info("Consumer error: " + e.getMessage());
 		}
-	}
-
-	public String getServiceUrl() {
-		return serviceUrl;
-	}
-
-	public void setServiceUrl(String serviceUrl) {
-		this.serviceUrl = serviceUrl;
-	}
-
-	public String getTopicName() {
-		return topicName;
-	}
-
-	public void setTopicName(String topicName) {
-		this.topicName = topicName;
 	}
 }
