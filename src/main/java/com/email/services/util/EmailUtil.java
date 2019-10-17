@@ -6,6 +6,7 @@ package com.email.services.util;
 import java.util.Date;
 import java.util.Properties;
 import javax.mail.Message;
+import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
@@ -16,17 +17,35 @@ import javax.mail.internet.MimeMessage;
  *
  */
 public class EmailUtil {
-	
-	public EmailUtil(){
-		
+
+	public EmailUtil() {
+
 	}
 
 	public void prepareEmail(String emailID) {
 		System.out.println("SimpleEmail Start");
-		String smtpHostServer = "smtp.gmail.com";
-		Properties props = System.getProperties();
-		props.put("mail.smtp.host", smtpHostServer);
-		Session session = Session.getInstance(props, null);
+		// String smtpHostServer = "smtp.gmail.com";
+		// Properties props = System.getProperties();
+
+		final String from = "nagarajumodeboyina@gmail.com";
+		final String password = "9247125688";
+
+		Properties props = new Properties();
+		props.setProperty("mail.transport.protocol", "smtp");
+		props.setProperty("mail.host", "smtp.gmail.com");
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.port", "465");
+		props.put("mail.debug", "true");
+		props.put("mail.smtp.socketFactory.port", "465");
+		props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+		props.put("mail.smtp.socketFactory.fallback", "false");
+		Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(from, password);
+			}
+		});
+		// props.put("mail.smtp.host", smtpHostServer);
+		// Session session = Session.getInstance(props, null);
 		sendEmail(session, emailID, "SimpleEmail Testing Subject", "SimpleEmail Testing Body");
 	}
 
