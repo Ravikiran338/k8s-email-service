@@ -4,9 +4,7 @@ server:
 spring:
   application:
     name: emailservice
-  batch:
-    job:
-      enabled:false 
+
 eureka:
   client:
     enabled: true
@@ -16,5 +14,10 @@ eureka:
       defaultZone: http://microservices-eureka-service:8761/eureka/
   instance:
      hostname: emailservice
+     
+spring:
+  batch:
+    job:
+      enabled:false      
    
 
