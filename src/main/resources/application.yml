@@ -2,10 +2,11 @@ server:
   port: 7777
   
 spring:
-  batch.job.enabled: false
   application:
     name: emailservice
-
+  batch:
+    job:
+      enabled:false 
 eureka:
   client:
     enabled: true
