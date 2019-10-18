@@ -28,8 +28,8 @@ public class EmailConsumer {
 		EmailConsumer consumer = new EmailConsumer(SERVICE_URL, TOPIC_NAME);
 		consumer.addListener(msg -> {
 				mLogger.info("Consumed message details :" +msg.toString());
-				//new EmailUtil().prepareEmail(msg);
-				consumer.close();
+				new EmailUtil().sendMail(msg.toString(),"Sending Sample Email","sending email by consuming messages from pulsar");
+				//consumer.close();
 		});
 		consumer.run();
 	}

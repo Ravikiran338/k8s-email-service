@@ -3,20 +3,34 @@
  */
 package com.email.services.util;
 
-import java.util.Date;
-import java.util.Properties;
-import javax.mail.Message;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 
 /**
  * @author mn259
  *
  */
-public class EmailUtil {/*
+public class EmailUtil {
+	
+   private JavaMailSender javaMailSender;
+   
+   public EmailUtil(){
+	}
+   
+	public EmailUtil(JavaMailSender javaMailSender) {
+		this.javaMailSender = javaMailSender;
+	}
+	
+	public void sendMail(String toEmail, String subject, String message) {
+		SimpleMailMessage mailMessage = new SimpleMailMessage();
+		mailMessage.setTo(toEmail);
+		mailMessage.setSubject(subject);
+		mailMessage.setText(message);
+		mailMessage.setFrom("hari.zwinny@gmail.com");
+		System.out.println("EMail Sent Successfully!!");
+		javaMailSender.send(mailMessage);
+	}
+	/*
 
 	public EmailUtil() {
 
