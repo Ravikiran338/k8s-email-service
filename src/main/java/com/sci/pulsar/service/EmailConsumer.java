@@ -25,9 +25,9 @@ public class EmailConsumer {
 	private static final String TOPIC_NAME = "user-topic";
 
 	@Autowired
-	private static EmailService emailService;
+	private EmailService emailService;
 	
-	public static void consumeUserMessage() throws PulsarClientException {
+	public void consumeUserMessage() throws PulsarClientException {
 
 		EmailConsumer consumer = new EmailConsumer(SERVICE_URL, TOPIC_NAME);
 		consumer.addListener(msg -> {
