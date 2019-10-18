@@ -27,8 +27,8 @@ public class EmailConsumer {
 
 		EmailConsumer consumer = new EmailConsumer(SERVICE_URL, TOPIC_NAME);
 		consumer.addListener(msg -> {
-				mLogger.info(msg.toString());
-				new EmailUtil().prepareEmail(msg);
+				mLogger.info("Consumed message details :" +msg.toString());
+				//new EmailUtil().prepareEmail(msg);
 				consumer.close();
 		});
 		consumer.run();

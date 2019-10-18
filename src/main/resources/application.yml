@@ -1,9 +1,18 @@
 server:
   port: 7777
-      
+  
+eureka:
+  client:
+    enabled: true
+    serviceUrl:
+      defaultZone: http://microservices-eureka-service:8761/eureka/
+  instance:
+    hostname: emailservice
+     
+     
 spring:
+  application:
+    name: emailservice
   batch:
     job:
-      enabled:false      
-   
-
+      enabled:false

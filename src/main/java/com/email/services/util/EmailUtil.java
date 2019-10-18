@@ -16,7 +16,7 @@ import javax.mail.internet.MimeMessage;
  * @author mn259
  *
  */
-public class EmailUtil {
+public class EmailUtil {/*
 
 	public EmailUtil() {
 
@@ -49,14 +49,14 @@ public class EmailUtil {
 		sendEmail(session, emailID, "SimpleEmail Testing Subject", "SimpleEmail Testing Body");
 	}
 
-	/**
+	*//**
 	 * Utility method to send simple HTML email
 	 * 
 	 * @param session
 	 * @param toEmail
 	 * @param subject
 	 * @param body
-	 */
+	 *//*
 	public void sendEmail(Session session, String toEmail, String subject, String body) {
 		try {
 			MimeMessage msg = new MimeMessage(session);
@@ -77,4 +77,4 @@ public class EmailUtil {
 			e.printStackTrace();
 		}
 	}
-}
+*/}
