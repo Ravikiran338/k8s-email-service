@@ -26,4 +26,5 @@ public class EmailApplication implements CommandLineRunner{
 			e.printStackTrace();
 		}
 	}
+
 }

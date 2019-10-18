@@ -10,8 +10,9 @@ import org.apache.pulsar.client.api.PulsarClientException;
 import org.apache.pulsar.client.api.SubscriptionType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import com.email.services.util.EmailUtil;
+import com.email.services.util.EmailService;
 
 /**
  * @author mn259
@@ -23,12 +24,15 @@ public class EmailConsumer {
 	private static final String SERVICE_URL = "pulsar://34.206.196.97:6650";
 	private static final String TOPIC_NAME = "user-topic";
 
+	@Autowired
+	private static EmailService emailService;
+	
 	public static void consumeUserMessage() throws PulsarClientException {
 
 		EmailConsumer consumer = new EmailConsumer(SERVICE_URL, TOPIC_NAME);
 		consumer.addListener(msg -> {
 				mLogger.info("Consumed message details :" +msg.toString());
-				new EmailUtil().sendMail(msg.toString(),"Sending Sample Email","sending email by consuming messages from pulsar");
+				emailService.sendMail(msg.toString(),"Sending Sample Email","sending email by consuming messages from pulsar");
 				//consumer.close();
 		});
 		consumer.run();

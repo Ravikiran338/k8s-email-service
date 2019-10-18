@@ -5,19 +5,18 @@ package com.email.services.util;
 
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.stereotype.Service;
 
 /**
  * @author mn259
  *
  */
-public class EmailUtil {
+@Service
+public class EmailService {
 	
    private JavaMailSender javaMailSender;
-   
-   public EmailUtil(){
-	}
-   
-	public EmailUtil(JavaMailSender javaMailSender) {
+     
+	public EmailService(JavaMailSender javaMailSender) {
 		this.javaMailSender = javaMailSender;
 	}
 	
@@ -29,6 +28,7 @@ public class EmailUtil {
 		mailMessage.setFrom("hari.zwinny@gmail.com");
 		System.out.println("EMail Sent Successfully!!");
 		javaMailSender.send(mailMessage);
+		System.out.println("EMail Sent Successfully!!---");
 	}
 	/*
 
