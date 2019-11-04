@@ -13,6 +13,8 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import com.sci.services.model.UserMsg;
+
 /**
  * @author mn259
  *
@@ -20,7 +22,7 @@ import javax.mail.internet.MimeMessage;
 //@Service
 public class EmailService {
 
-	public void sendMail(String toEmail) {
+	public void sendMail(UserMsg user) {
 		String username = "mhari.techie@gmail.com";
 		String password = "09g81a0505";
 
@@ -39,7 +41,7 @@ public class EmailService {
 		try {
 			Message consumeMessage = new MimeMessage(session);
 			consumeMessage.setFrom(new InternetAddress(username));
-			consumeMessage.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail));
+			consumeMessage.setRecipients(Message.RecipientType.TO, InternetAddress.parse(user.getEmail()));
 			consumeMessage.setSubject("Testing Radiant Digital mail");
 			consumeMessage.setText("Dear Radiant Digital," + "\n\n Please do not spam my email!");
 			Transport.send(consumeMessage);

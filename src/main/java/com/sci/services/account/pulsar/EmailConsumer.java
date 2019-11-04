@@ -3,6 +3,9 @@
  */
 package com.sci.services.account.pulsar;
 
+import java.io.IOException;
+
+import org.apache.commons.lang.SerializationUtils;
 import org.apache.pulsar.client.api.Consumer;
 import org.apache.pulsar.client.api.Message;
 import org.apache.pulsar.client.api.PulsarClient;
@@ -11,7 +14,7 @@ import org.apache.pulsar.client.api.SubscriptionType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.sci.services.account.util.EmailService;
+import com.sci.services.model.UserMsg;
 
 /**
  * @author mn259
@@ -26,9 +29,9 @@ public class EmailConsumer {
 	public void consumeUserMessage() throws PulsarClientException {
 
 		EmailConsumer consumer = new EmailConsumer(SERVICE_URL, TOPIC_NAME);
-		consumer.addListener(msg -> {
-			mLogger.info("Consumed message details :" + msg.toString());
-			new EmailService().sendMail(msg);
+		consumer.addListener(user -> {
+			mLogger.info("Consumed message details :" + user.toString());
+		//	new EmailService().sendMail(user);
 			// consumer.close();
 		});
 		consumer.run();
@@ -70,11 +73,18 @@ public class EmailConsumer {
 	@SuppressWarnings("rawtypes")
 	private void readMessage(Consumer<byte[]> consumer, Message msg) {
 		try {
+			mLogger.info("Consumer acknowledge: " + msg);
 			consumer.acknowledge(msg);
-			String content = new String(msg.getData());
-			mListener.messageFetched(content);
-			mLogger.info("Consumer: " + content);
-		} catch (PulsarClientException e) {
+			mLogger.info("after Consumer acknowledge: " + msg);
+			//String content = new String(msg.getData());
+			UserMsg user = (UserMsg) SerializationUtils.deserialize(msg.getData());
+			/*ByteArrayInputStream bis = new ByteArrayInputStream(msg.getData());
+			ObjectInput in = new ObjectInputStream(bis);
+			UserMsg user =(UserMsg) in.readObject();*/
+			mLogger.info("Consumer UserMsg: " + user);
+			mListener.messageFetched(user);
+			mLogger.info("Consumer: " + user);
+		} catch (IOException e) {
 			mLogger.info("Consumer error: " + e.getMessage());
 		}
 	}
